@@ -8,7 +8,7 @@
     Username or password is wrong, Please try again.
 </p>
 {% else %}
-<p>Please use the form to Login:</p>
+<p id="login-text">Please use the form to Login:</p>
 {% endif %}
 <div class="login-form">
     <form action="{% url 'login' %}" method="post">

@@ -24,9 +24,15 @@ def user_login(request):
         form = LoginForm()
     return render(request, 'registration/login.html', {'form':form})
 
-@login_required
+
 def homepage(request):
-    return render(request, 'stacquora/homepage.html', {'section': 'homepage'})
+    questions = Question.objects.all().order_by('-created')
+
+    return render(request, 'stacquora/homepage.html', {'section': 'homepage', 'questions':questions})
+
+
+def questionpage(request):
+    return None
 
 def register(request):
     if request.method=='POST':
@@ -40,4 +46,4 @@ def register(request):
     else:
         user_form=UserRegistrationForm()
     return render(request, 'stacquora/register.html', {'user_form':user_form})
-    
+

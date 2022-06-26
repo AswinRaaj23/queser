@@ -1,6 +1,20 @@
 {% extends "base.html" %}
 {% block title %}Homepage{% endblock %}
 {% block content %}
-    <h1>Home</h1>
-    <p>Welcome to your Homepage.</p>
+    <h1>All Questions</h1>
+    {% for question in questions %}
+        <div class="page">
+            <a href="{% url 'question' question.id %}">
+                <p class="question-title">
+                    {{ question.title }}
+                </p>
+                <p class="question-author">
+                    asked by:{{ question.author.username }}
+                </p>
+            </a>
+        </div>
+
+        <hr>
+    {% endfor %}
+
 {% endblock %}

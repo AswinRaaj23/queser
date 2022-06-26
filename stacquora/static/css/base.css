@@ -29,7 +29,10 @@ h1 {
 
 h2 {
     margin:30px 0 20px;
+    border-bottom:1px solid #bbb;
 }
+
+
 
 ol {
     line-height:1.5;
@@ -137,6 +140,31 @@ input[type=submit], a.button {
     
 }
 
+.page{
+    display:flex;
+}
+
+.question-title{
+    color: black;
+    font-weight: bold;
+}
+
+.question-author{
+    color: gray;
+    margin: 0px;
+}
+
+.title{
+    font-weight: bolder;
+    margin: 20px auto 30px auto;
+}
+/* 
+.page a:hover{
+    color: red;
+    text-decoration: underline;
+} */
+
+
 /* messages */
 ul.messages {
     margin:10px 100px;
@@ -175,6 +203,14 @@ ul.messages li a.close {
     text-shadow:none;
 }
 
-.login-form {
-    float:left;
+/* .login-form,
+.register-form {
+    margin:0 auto;
+    min-width: 17%;
+    max-width: 17%;
 }
+
+#register-text,
+#login-text{
+    text-align: center;
+} */
