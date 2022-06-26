@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from .models import Question
-from .forms import LoginForm,UserRegistrationForm
+from .forms import LoginForm,UserRegistrationForm,AskQuestionForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 # Create your views here.
@@ -47,3 +47,16 @@ def register(request):
         user_form=UserRegistrationForm()
     return render(request, 'stacquora/register.html', {'user_form':user_form})
 
+@login_required
+def askquestion(request):
+    form = AskQuestionForm()
+
+    if request.method=="POST":
+        form = AskQuestionForm(request.POST)
+
+        if form.is_valid():
+            question=form.save(commit=False)
+            question.author=request.user
+            question.save()
+
+    return render(request, 'stacquora/askquestion.html', {'form':form})
