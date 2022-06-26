@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 
-from stacquora.models import Question
+from stacquora.models import Question, Answer
 
 class LoginForm(forms.Form):
     username = forms.CharField()
@@ -25,4 +25,8 @@ class AskQuestionForm(forms.ModelForm):
     class Meta:
         model = Question
         fields = ['title', 'description']
-        
+
+class AnswerQuestion(forms.ModelForm):
+    class Meta:
+        model = Answer
+        fields = ['answer']

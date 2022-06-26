@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from .models import Question
-from .forms import LoginForm,UserRegistrationForm,AskQuestionForm
+from .models import Answer, Question
+from .forms import LoginForm,UserRegistrationForm,AskQuestionForm,AnswerQuestion
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 # Create your views here.
@@ -31,9 +31,6 @@ def homepage(request):
     return render(request, 'stacquora/homepage.html', {'section': 'homepage', 'questions':questions})
 
 
-def questionpage(request):
-    return None
-
 def register(request):
     if request.method=='POST':
         user_form=UserRegistrationForm(request.POST)
@@ -60,3 +57,20 @@ def askquestion(request):
             question.save()
 
     return render(request, 'stacquora/askquestion.html', {'form':form})
+
+def questionpage(request, id):
+    question = Question.objects.get(id=id)
+    answerform = AnswerQuestion()
+
+
+    if request.method=='POST':
+        answerform = AnswerQuestion(request.POST)
+
+        if answerform.is_valid():
+            answer=answerform.save(commit=False)
+            answer.user=request.user
+            answer.question=Question(id=id)
+            answer.save()
+
+
+    return render(request, 'stacquora/question_detail.html',{'question':question, 'answerform':answerform})
