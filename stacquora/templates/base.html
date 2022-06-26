@@ -12,7 +12,7 @@
         {% if request.user.is_authenticated %}
         <ul class="menu">
             <li {% if section == "homepage" %}class="selected"{% endif %}>
-                <a href="{% url 'homepage' %}">Ask a Question</a>
+                <a href="{% url 'homepage' %}" class="anc-tag">Ask a Question</a>
             </li>
         </ul>
         {% endif %}

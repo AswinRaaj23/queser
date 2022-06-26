@@ -11,12 +11,12 @@ p {
 }
 
 a {
-    color:#12c064;
+    color:#cf1313;
     text-decoration:none;
 }
 
 a:hover {
-    color:#00a74f;
+    color:#cf1313;
 }
 
 h1, h2, h3, h4, h5 , h6 { font-family: 'Muli', sans-serif; font-weight:normal; }
@@ -64,7 +64,7 @@ ol {
 }
 
 #header ul.menu li.selected a, #header ul.menu li.selected a:hover {
-    color:#1b6d32;
+    color:#cf1313;
     font-weight:bold;
 }
 
@@ -130,6 +130,13 @@ input[type=submit], a.button {
     float:left;
     font-size:13px;
 }
+.anc-tag {
+    background-color: white;
+    border-radius: 30px;
+    padding: 10px 20px;
+    
+}
+
 /* messages */
 ul.messages {
     margin:10px 100px;
@@ -171,4 +178,3 @@ ul.messages li a.close {
 .login-form {
     float:left;
 }
-/* images */
