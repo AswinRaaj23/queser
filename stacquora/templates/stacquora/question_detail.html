@@ -18,6 +18,8 @@
 </div>
 
 <hr>
+{% empty %}
+ <p>No Answers yet.</p>
 {% endfor %}
 
 {% if request.user.is_authenticated %}
