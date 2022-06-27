@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 from .models import Answer, Question
 from .forms import LoginForm,UserRegistrationForm,AskQuestionForm,AnswerQuestion
 from django.contrib.auth import authenticate, login
@@ -88,6 +88,7 @@ def edit(request, id):
         edit_form = AskQuestionForm(instance=question, data=request.POST)
         if edit_form.is_valid():
             edit_form.save()
+            return redirect('homepage')
     else:
         edit_form = AskQuestionForm(instance=question)
     return render(request,'stacquora/edit.html', {'edit_form':edit_form})
