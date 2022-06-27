@@ -92,3 +92,15 @@ def edit(request, id):
     else:
         edit_form = AskQuestionForm(instance=question)
     return render(request,'stacquora/edit.html', {'edit_form':edit_form})
+
+@login_required
+def edit_answer(request, id):
+    answer = Answer.objects.get(id=id)
+    if request.method=='POST':
+        edit_answer_form = AnswerQuestion(instance=answer, data=request.POST)
+        if edit_answer_form.is_valid():
+            edit_answer_form.save()
+            return redirect('homepage')
+    else:
+        edit_answer_form = AnswerQuestion(instance=answer)
+    return render(request, 'stacquora/edit_answer.html', {'edit_answer_form':edit_answer_form})

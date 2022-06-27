@@ -223,11 +223,11 @@ ul.messages li a.close {
 }
 
 .author-name{
-    color: lightgray;
+    color: gray;
 }
 
 .answer-author{
-    color: lightgray;
+    color: gray;
 }
 
 .dropbtn {
