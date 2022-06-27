@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from .models import Answer, Question
 from .forms import LoginForm,UserRegistrationForm,AskQuestionForm,AnswerQuestion
 from django.contrib.auth import authenticate, login
@@ -26,10 +26,15 @@ def user_login(request):
     return render(request, 'registration/login.html', {'form':form})
 
 
-def homepage(request):
+def homepage(request, tag_slug=None):
     questions = Question.objects.all().order_by('-created')
+    tag = None
 
-    return render(request, 'stacquora/homepage.html', {'section': 'homepage', 'questions':questions})
+    if tag_slug:
+        tag = get_object_or_404(Tag, slug=tag_slug)
+        questions = questions.filter(tags__in=[tag])
+
+    return render(request, 'stacquora/homepage.html', {'section': 'homepage', 'questions':questions,'tag':tag})
 
 
 def register(request):

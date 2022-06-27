@@ -2,6 +2,9 @@
 {% block title %}Homepage{% endblock %}
 {% block content %}
     <h1>All Questions</h1>
+    {% if tag %}
+        <h2>Posts tagged with "{{ tag.name }}"</h2>
+    {% endif %}
     {% for question in questions %}
         <div class="page">
             <a href="{% url 'question' question.id %}">
@@ -9,8 +12,13 @@
                     {{ question.title }}
                 </p>
             </a>
-            <div clas="tags">
-                <p>Tags: {{ question.tags.all|join:", " }}</p>
+            <div>
+                <p>Tags: 
+                    {% for tag in question.tags.all %}
+                        <a href="{% url 'question_list_by_tag' tag.slug %}">{{ tag.name }}</a>
+                        {% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
             
                 <p class="question-author">
                     asked by:{{ question.author.username }}

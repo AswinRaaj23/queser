@@ -9,4 +9,5 @@ urlpatterns = [
     path('askquestion/', views.askquestion, name='askquestion'),
     path('question/<int:id>/', views.questionpage, name='question'),
     path('', views.homepage, name='homepage'),
+    path('tag/<slug:tag_slug>/', views.homepage, name='question_list_by_tag'),
 ]
