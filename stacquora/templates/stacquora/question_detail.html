@@ -2,9 +2,23 @@
 {% block title %}{{ question.title }}{% endblock %}
 
 {% block content %}
-<h2>{{ question.title }}</h2>
+<h2><b>{{ question.title }}</b></h2>
 <p>{{ question.description }}</p>
-<span>asked by: {{ question.author.username }}</span>
+<span class="author-name">asked by: {{ question.author.username }}</span>
+<br>
+<h2><b>Answers:</b></h2>
+{% for answer in question.answers.all %}
+<div class="answer-list">
+    <p class="answer-title">
+        {{ answer.answer }}
+    </p>
+    <p class="answer-author">
+        answered by:{{ answer.user.username }}
+    </p>
+</div>
+
+<hr>
+{% endfor %}
 
 {% if request.user.is_authenticated %}
 
@@ -14,7 +28,7 @@
 
     <p><input type="submit" value="Submit Answer"></p>
 </form>
-{% else %}<p><b>Login to see answers</b></p>
+{% else %}<p><b><a href="{% url 'login' %}">Login to see answers</a></b></p>
 {% endif %}
 
 {% endblock %}

@@ -214,3 +214,15 @@ ul.messages li a.close {
 #login-text{
     text-align: center;
 } */
+
+.answer-list{
+    margin-left: 36px;
+}
+
+.author-name{
+    color: lightgray;
+}
+
+.answer-author{
+    color: lightgray;
+}

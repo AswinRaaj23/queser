@@ -61,7 +61,7 @@ def askquestion(request):
 def questionpage(request, id):
     question = Question.objects.get(id=id)
     answerform = AnswerQuestion()
-
+    #answers = question.answers.all()
 
     if request.method=='POST':
         answerform = AnswerQuestion(request.POST)
@@ -73,4 +73,4 @@ def questionpage(request, id):
             answer.save()
 
 
-    return render(request, 'stacquora/question_detail.html',{'question':question, 'answerform':answerform})
+    return render(request, 'stacquora/question_detail.html',{'question':question, 'answerform':answerform })
