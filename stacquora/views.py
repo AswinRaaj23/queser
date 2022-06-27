@@ -27,7 +27,8 @@ def user_login(request):
 
 
 def homepage(request, tag_slug=None):
-    questions = Question.objects.all().order_by('-created')
+    sort = request.GET.get('order','-created')
+    questions = Question.objects.all().order_by(sort)
     tag = None
 
     if tag_slug:
@@ -79,3 +80,4 @@ def questionpage(request, id):
 
 
     return render(request, 'stacquora/question_detail.html',{'question':question, 'answerform':answerform })
+
