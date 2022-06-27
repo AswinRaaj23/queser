@@ -104,3 +104,9 @@ def edit_answer(request, id):
     else:
         edit_answer_form = AnswerQuestion(instance=answer)
     return render(request, 'stacquora/edit_answer.html', {'edit_answer_form':edit_answer_form})
+
+@login_required
+def delete(request, id):
+    question = Question.objects.get(id=id)
+    question.delete()
+    return redirect('homepage')

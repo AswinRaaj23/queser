@@ -34,7 +34,7 @@
                     asked by:{{ question.author.username }}, {{ question.created|timesince }}
                 </p>
                 {% if request.user == question.author %}
-                    <span><a href="" class="delete">Delete</a></span>
+                    <span><a href="{% url 'delete' question.id %}" class="delete">Delete</a></span>
                     <span><a href="{% url 'edit' question.id %}" class="edit">Edit</a></span>
                 {% endif %}
             </div>
