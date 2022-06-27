@@ -4,6 +4,7 @@ from .models import Answer, Question
 from .forms import LoginForm,UserRegistrationForm,AskQuestionForm,AnswerQuestion
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from taggit.models import Tag
 # Create your views here.
 
 def user_login(request):
@@ -61,7 +62,6 @@ def askquestion(request):
 def questionpage(request, id):
     question = Question.objects.get(id=id)
     answerform = AnswerQuestion()
-    #answers = question.answers.all()
 
     if request.method=='POST':
         answerform = AnswerQuestion(request.POST)

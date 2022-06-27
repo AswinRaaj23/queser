@@ -8,10 +8,14 @@
                 <p class="question-title">
                     {{ question.title }}
                 </p>
+            </a>
+            <div clas="tags">
+                <p>Tags: {{ question.tags.all|join:", " }}</p>
+            
                 <p class="question-author">
                     asked by:{{ question.author.username }}
                 </p>
-            </a>
+            </div>
         </div>
 
         <hr>

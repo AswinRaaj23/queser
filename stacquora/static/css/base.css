@@ -58,7 +58,7 @@ ol {
 #header ul.menu {
     list-style:none;
     float:left;
-    margin:0;
+    margin:0 0 0 600px;
     padding:0;
 }
 #header ul.menu li {
@@ -142,8 +142,11 @@ input[type=submit], a.button {
 
 .page{
     display:flex;
+    flex-direction: column;
 }
-
+.tags{
+    display: flex;
+}
 .question-title{
     color: black;
     font-weight: bold;
