@@ -31,8 +31,12 @@
                 </p>
             
                 <p class="question-author">
-                    asked by:{{ question.author.username }}
+                    asked by:{{ question.author.username }}, {{ question.created|timesince }}
                 </p>
+                {% if request.user == question.author %}
+                    <span><a href="" class="delete">Delete</a></span>
+                    <span><a href="{% url 'edit' question.id %}" class="edit">Edit</a></span>
+                {% endif %}
             </div>
         </div>
 

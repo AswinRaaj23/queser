@@ -265,3 +265,16 @@ ul.messages li a.close {
   .dropdown-content a:hover {background-color: #f1f1f1;}
   .dropdown:hover .dropdown-content {display: block;}
   .dropdown:hover .dropbtn {background-color: #ac1717;}
+
+  .edit{
+    color: gray;
+    text-decoration: none;
+    float: right;
+    margin-right: 10px;
+  }
+
+  .delete{
+    color: gray;
+    text-decoration: none;
+    float: right;
+  }

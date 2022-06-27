@@ -81,3 +81,13 @@ def questionpage(request, id):
 
     return render(request, 'stacquora/question_detail.html',{'question':question, 'answerform':answerform })
 
+@login_required
+def edit(request, id):
+    question = Question.objects.get(id=id)
+    if request.method=='POST':
+        edit_form = AskQuestionForm(instance=question, data=request.POST)
+        if edit_form.is_valid():
+            edit_form.save()
+    else:
+        edit_form = AskQuestionForm(instance=question)
+    return render(request,'stacquora/edit.html', {'edit_form':edit_form})
