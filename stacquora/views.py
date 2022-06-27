@@ -110,3 +110,9 @@ def delete(request, id):
     question = Question.objects.get(id=id)
     question.delete()
     return redirect('homepage')
+
+@login_required
+def delete_answer(request, id):
+    answer = Answer.objects.get(id=id)
+    answer.delete()
+    return redirect('homepage')

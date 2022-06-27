@@ -11,6 +11,7 @@ urlpatterns = [
     path('edit/<int:id>/', views.edit, name='edit'),
     path('editanswer/<int:id>/', views.edit_answer, name='edit_answer'),
     path('delete/<int:id>/', views.delete, name='delete'),
+    path('deleteanswer/<int:id>/', views.delete_answer, name='delete_answer'),
     path('', views.homepage, name='homepage'),
     path('tag/<slug:tag_slug>/', views.homepage, name='question_list_by_tag'),
 ]

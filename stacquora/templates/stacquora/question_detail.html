@@ -15,7 +15,7 @@
     <p class="answer-author">
         answered by:{{ answer.user.username }}
         {% if request.user == answer.user %}
-            <span><a href="" class="delete">Delete</a></span>
+            <span><a href="{% url 'delete_answer' answer.id %}" class="delete">Delete</a></span>
             <span><a href="{% url 'edit_answer' answer.id %}" class="edit">Edit</a></span>
         {% endif %}
     </p>
