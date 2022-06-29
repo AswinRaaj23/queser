@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, redirect, render
-from .models import Answer, Question, QuestionComment
-from .forms import LoginForm,UserRegistrationForm,AskQuestionForm,AnswerQuestion, QuestionComment
+from .models import Answer, AnswerComment, Question, QuestionComment
+from .forms import LoginForm,UserRegistrationForm,AskQuestionForm,AnswerQuestion, QuestionComment, AnswerComment
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from taggit.models import Tag
@@ -114,3 +114,20 @@ def questioncomment(request, id):
             return redirect(reverse('question', args=[id]))
 
     return render(request, 'stacquora/question_comment.html', {'commentform':commentform, 'question':question})
+
+def answercomment(request, id):
+    anscommentform = AnswerComment
+    answer = Answer.objects.get(id=id)
+    q_id = answer.question.id
+
+    if request.method=='POST':
+        anscommentform = AnswerComment(request.POST)
+
+        if anscommentform.is_valid():
+            comment=anscommentform.save(commit=False)
+            comment.user=request.user
+            comment.answer=Answer(id=id)
+            comment.save()
+            return redirect(reverse('question', args=[q_id]))
+    
+    return render(request, 'stacquora/answer_comment.html', {'anscommentform':anscommentform, 'answer':answer})

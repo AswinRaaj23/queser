@@ -36,3 +36,12 @@ class QuestionComment(models.Model):
 
     def __str__(self):
         return self.comment
+
+class AnswerComment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null= False)
+    answer = models.ForeignKey(Answer, on_delete=models.CASCADE, null=False, related_name='answercomment')
+    comment = models.CharField(max_length=300)
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.comment

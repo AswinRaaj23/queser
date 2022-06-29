@@ -7,14 +7,14 @@
 <span class="author-name">asked by: {{ question.author.username }} </span>
 <br>
 
-<h4><b class="comment-section">Comments:</b></h4>
-{% for comment in question.questioncomment.all %}
-<p class="comment-section">{{ comment.comment }} <span class="comment-name">| commented by: {{ comment.user.username }} </span></p>
+    <h4><b class="comment-section">Comments:</b></h4>
+    {% for comment in question.questioncomment.all %}
+    <p class="comment-section">{{ comment.comment }} <span class="comment-name">| commented by: {{ comment.user.username }} </span></p>
 
-{% empty %}
- <p class="comment-section">No Comments yet.</p>
-{% endfor %}
-<a href="{% url 'question_comment' question.id %}" class="comment-section">Add a comment</a>
+    {% empty %}
+    <p class="comment-section">No Comments yet.</p>
+    {% endfor %}
+    <a href="{% url 'question_comment' question.id %}" class="comment-section">Add a comment</a>
 
 <h2><b>Answers:</b></h2>
 {% for answer in question.answers.all %}
@@ -30,6 +30,15 @@
         {% endif %}
     </p>
 </div>
+
+    <h4><b class="comment-section">Comments:</b></h4>
+    {% for comment in answer.answercomment.all %}
+    <p class="comment-section">{{ comment.comment }} <span class="comment-name">| commented by: {{ comment.user.username }} </span></p>
+
+
+    {% endfor %}
+    <a href="{% url 'answer_comment' answer.id %}" class="comment-section">Add a comment</a>
+
 
 <hr>
 {% empty %}
