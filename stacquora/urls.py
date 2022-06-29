@@ -16,6 +16,8 @@ urlpatterns = [
     path('answercomment/<int:id>/', views.answercomment, name='answer_comment'),
     path('editquestion-comment/<int:id>/', views.edit_questioncomment, name='edit_comment_for_question'),
     path('editanswer-comment/<int:id>/', views.edit_answercomment, name='edit_comment_for_answer'),
+    path('delete-questioncomment/<int:id>/', views.delete_questioncomment, name='delete_comment_for_question'),
+    path('delete-answercomment/<int:id>/', views.delete_answercomment, name='delete_comment_for_answer'),
     path('', views.homepage, name='homepage'),
     path('tag/<slug:tag_slug>/', views.homepage, name='question_list_by_tag'),
 ]

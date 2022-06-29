@@ -148,6 +148,7 @@ def edit_questioncomment(request, id):
         edit_comment_form = QuestionCommentForm(instance=comment)
     return render(request, 'stacquora/edit_questioncomment.html', {'edit_comment_form':edit_comment_form})
 
+@login_required
 def edit_answercomment(request, id):
     comment = AnswerComment.objects.get(id=id)
     q_id = comment.answer.question.id
@@ -161,3 +162,19 @@ def edit_answercomment(request, id):
         edit_answercomment_form = AnswerCommentForm(instance=comment)
 
     return render(request, 'stacquora/edit_answercomment.html', {'edit_answercomment_form':edit_answercomment_form})
+
+@login_required
+def delete_questioncomment(request, id):
+    comment = QuestionComment.objects.get(id=id)
+    q_id = comment.question.id
+
+    comment.delete()
+    return redirect(reverse('question', args=[q_id]))
+
+@login_required
+def delete_answercomment(request, id):
+    comment = AnswerComment.objects.get(id=id)
+    q_id = comment.answer.question.id
+
+    comment.delete()
+    return redirect(reverse('question', args=[q_id]))

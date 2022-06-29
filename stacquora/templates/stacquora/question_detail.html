@@ -11,7 +11,7 @@
     {% for comment in question.questioncomment.all %}
         <p class="comment-indent">{{ comment.comment }} <span class="comment-name">| commented by: {{ comment.user.username }} </span>
         {% if request.user == comment.user %}
-            <span><a href="" class="delete">Delete</a></span>
+            <span><a href="{% url 'delete_comment_for_question' comment.id %}" class="delete">Delete</a></span>
             <span><a href="{% url 'edit_comment_for_question' comment.id %}" class="edit">Edit</a></span>
         {% endif %}
         </p>
@@ -42,7 +42,7 @@
         <p class="comment-indent">{{ comment.comment }} <span class="comment-name">| commented by: {{ comment.user.username }} </span>
         
         {% if request.user == comment.user %}
-            <span><a href="" class="delete">Delete</a></span>
+            <span><a href="{% url 'delete_comment_for_answer' comment.id %}" class="delete">Delete</a></span>
             <span><a href="{% url 'edit_comment_for_answer' comment.id %}" class="edit">Edit</a></span>
         {% endif %}
 
