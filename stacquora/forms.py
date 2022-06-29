@@ -30,3 +30,8 @@ class AnswerQuestion(forms.ModelForm):
     class Meta:
         model = Answer
         fields = ['answer']
+
+class QuestionComment(forms.ModelForm):
+    class Meta:
+        model = QuestionComment
+        fields = ['comment']

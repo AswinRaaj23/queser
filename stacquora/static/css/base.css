@@ -228,6 +228,9 @@ ul.messages li a.close {
 .author-name{
     color: gray;
 }
+.comment-name{
+    color: gray;
+}
 
 .answer-author{
     color: gray;

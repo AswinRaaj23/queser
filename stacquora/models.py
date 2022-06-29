@@ -30,7 +30,7 @@ class Answer(models.Model):
 
 class QuestionComment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null= False)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE, null=False)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, null=False, related_name='questioncomment')
     comment = models.CharField(max_length=300)
     created = models.DateTimeField(auto_now_add=True)
 

@@ -1,11 +1,9 @@
-from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from .models import Answer, Question
-from .forms import LoginForm,UserRegistrationForm,AskQuestionForm,AnswerQuestion
+from .models import Answer, Question, QuestionComment
+from .forms import LoginForm,UserRegistrationForm,AskQuestionForm,AnswerQuestion, QuestionComment
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from taggit.models import Tag
-from django.db.models import Count
 # Create your views here.
 
 def homepage(request, tag_slug=None):
@@ -98,3 +96,20 @@ def delete_answer(request, id):
     answer = Answer.objects.get(id=id)
     answer.delete()
     return redirect('homepage')
+
+
+def questioncomment(request, id):
+    commentform = QuestionComment
+    question = Question.objects.get(id=id)
+
+    if request.method=='POST':
+        commentform = QuestionComment(request.POST)
+
+        if commentform.is_valid():
+            comment=commentform.save(commit=False)
+            comment.user=request.user
+            comment.question=Question(id=id)
+            comment.save()
+            return redirect('homepage')
+
+    return render(request, 'stacquora/question_comment.html', {'commentform':commentform, 'question':question})
