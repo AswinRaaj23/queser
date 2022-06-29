@@ -4,3 +4,7 @@ from .models import Question, Answer
 
 admin.site.register(Question)
 admin.site.register(Answer)
+
+# @admin.register(Comment)
+# class CommentAdmin(admin.ModelAdmin):
+#     list_display = ('user','comment', 'object_id', 'content_type')

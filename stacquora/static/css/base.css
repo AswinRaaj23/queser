@@ -218,10 +218,13 @@ ul.messages li a.close {
     text-align: center;
 } */
 
-.answer-list{
+.comment-section{
     margin-left: 36px;
 }
-
+.comment{
+    color: gray;
+    float: right;
+}
 .author-name{
     color: gray;
 }
@@ -277,4 +280,21 @@ ul.messages li a.close {
     color: gray;
     text-decoration: none;
     float: right;
+  }
+
+  .material-symbols-outlined{
+    margin-left: 5px;
+  }
+
+  .likes{
+    color: gray;
+    text-decoration: none;
+    float: left;
+    margin-left: 10px;
+  }
+
+  .comment-link{
+    color:gray;
+    
+
   }

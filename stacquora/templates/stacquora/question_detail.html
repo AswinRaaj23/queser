@@ -4,8 +4,12 @@
 {% block content %}
 <h2><b>{{ question.title }}</b></h2>
 <p>{{ question.description }}</p>
-<span class="author-name">asked by: {{ question.author.username }}</span>
+<span class="author-name">asked by: {{ question.author.username }} </span>
 <br>
+
+
+
+
 <h2><b>Answers:</b></h2>
 {% for answer in question.answers.all %}
 <div class="answer-list">

@@ -31,11 +31,19 @@
                 </p>
             
                 <p class="question-author">
-                    asked by:{{ question.author.username }}, {{ question.created|timesince }}
+                    asked by:{{ question.author.username }}, {{ question.created|timesince }} ago
                 </p>
                 {% if request.user == question.author %}
                     <span><a href="{% url 'delete' question.id %}" class="delete">Delete</a></span>
                     <span><a href="{% url 'edit' question.id %}" class="edit">Edit</a></span>
+                {% endif %}
+
+                <br>
+                {% if request.user != question.author %}
+                
+                    <span><a href="" class="likes">Upvote</a></span>
+                    <span><a href="" class="likes">Downvote</a></span>
+                
                 {% endif %}
             </div>
         </div>

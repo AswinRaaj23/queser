@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 
-from stacquora.models import Question, Answer
+from stacquora.models import Question, Answer, QuestionComment
 
 class LoginForm(forms.Form):
     username = forms.CharField()
