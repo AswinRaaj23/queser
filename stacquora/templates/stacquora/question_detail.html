@@ -11,6 +11,8 @@
 {% for comment in question.questioncomment.all %}
 <p class="comment-section">{{ comment.comment }} <span class="comment-name">| commented by: {{ comment.user.username }} </span></p>
 
+{% empty %}
+ <p class="comment-section">No Comments yet.</p>
 {% endfor %}
 <a href="{% url 'question_comment' question.id %}" class="comment-section">Add a comment</a>
 
@@ -42,7 +44,7 @@
 
     <p><input type="submit" value="Submit Answer"></p>
 </form>
-{% else %}<p><b><a href="{% url 'login' %}">Login to see answers</a></b></p>
+{% else %}<p><b><a href="{% url 'login' %}">Login to answer</a></b></p>
 {% endif %}
 
 {% endblock %}

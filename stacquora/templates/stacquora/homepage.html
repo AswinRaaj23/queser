@@ -39,11 +39,11 @@
                 {% endif %}
 
                 <br>
-                {% if request.user != question.author %}
-                
-                    <span><a href="" class="likes">Upvote</a></span>
-                    <span><a href="" class="likes">Downvote</a></span>
-                
+                {% if request.user.is_authenticated %}
+                    {% if request.user != question.author %}
+                        <span><a href="" class="likes">Upvote</a></span>
+                        <span><a href="" class="likes">Downvote</a></span>
+                    {% endif %}                 
                 {% endif %}
             </div>
         </div>

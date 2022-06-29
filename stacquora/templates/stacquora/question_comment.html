@@ -3,9 +3,14 @@
 
 {% block content %}
 <h1>Comment</h1>
+
+{% if request.user.is_authenticated %}
 <form method="post">
     {{ commentform.as_p }}
     {% csrf_token %}
     <p><input type="submit" value="Submit"></p>
 </form>
+
+{% endif %}
+
 {% endblock %}

@@ -4,6 +4,7 @@ from .forms import LoginForm,UserRegistrationForm,AskQuestionForm,AnswerQuestion
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from taggit.models import Tag
+from django.urls import reverse
 # Create your views here.
 
 def homepage(request, tag_slug=None):
@@ -97,7 +98,7 @@ def delete_answer(request, id):
     answer.delete()
     return redirect('homepage')
 
-
+@login_required
 def questioncomment(request, id):
     commentform = QuestionComment
     question = Question.objects.get(id=id)
@@ -110,6 +111,6 @@ def questioncomment(request, id):
             comment.user=request.user
             comment.question=Question(id=id)
             comment.save()
-            return redirect('homepage')
+            return redirect(reverse('question', args=[id]))
 
     return render(request, 'stacquora/question_comment.html', {'commentform':commentform, 'question':question})
