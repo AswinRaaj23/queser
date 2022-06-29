@@ -72,7 +72,7 @@ ol {
 }
 
 #header a {
-    color:#f3f7cc;
+    color:whitesmoke;
 }
 #header a:hover {
     color:#fff;
@@ -219,6 +219,10 @@ ul.messages li a.close {
 } */
 
 .comment-section{
+    margin-left: 36px;
+    color: gray;
+}
+.comment-indent{
     margin-left: 36px;
 }
 .comment{

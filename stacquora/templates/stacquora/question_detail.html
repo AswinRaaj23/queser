@@ -7,12 +7,17 @@
 <span class="author-name">asked by: {{ question.author.username }} </span>
 <br>
 
-    <h4><b class="comment-section">Comments:</b></h4>
+    <h4><b class="comment-indent">Comments:</b></h4>
     {% for comment in question.questioncomment.all %}
-    <p class="comment-section">{{ comment.comment }} <span class="comment-name">| commented by: {{ comment.user.username }} </span></p>
+        <p class="comment-indent">{{ comment.comment }} <span class="comment-name">| commented by: {{ comment.user.username }} </span>
+        {% if request.user == comment.user %}
+            <span><a href="" class="delete">Delete</a></span>
+            <span><a href="{% url 'edit_comment_for_question' comment.id %}" class="edit">Edit</a></span>
+        {% endif %}
+        </p>
 
-    {% empty %}
-    <p class="comment-section">No Comments yet.</p>
+        {% empty %}
+        <p class="comment-section">No Comments yet.</p>
     {% endfor %}
     <a href="{% url 'question_comment' question.id %}" class="comment-section">Add a comment</a>
 
@@ -25,17 +30,23 @@
     <p class="answer-author">
         answered by:{{ answer.user.username }}
         {% if request.user == answer.user %}
-            <span><a href="{% url 'delete_answer' answer.id %}" class="delete">Delete</a></span>
-            <span><a href="{% url 'edit_answer' answer.id %}" class="edit">Edit</a></span>
+            <span><a href="{% url 'delete_answer' answer.id %}" class="delete">Delete Answer</a></span>
+            <span><a href="{% url 'edit_answer' answer.id %}" class="edit">Edit Answer</a></span>
         {% endif %}
     </p>
 </div>
+<h1></h1>
 
-    <h4><b class="comment-section">Comments:</b></h4>
+    <h4><b class="comment-indent">Comments:</b></h4>
     {% for comment in answer.answercomment.all %}
-    <p class="comment-section">{{ comment.comment }} <span class="comment-name">| commented by: {{ comment.user.username }} </span></p>
+        <p class="comment-indent">{{ comment.comment }} <span class="comment-name">| commented by: {{ comment.user.username }} </span>
+        
+        {% if request.user == comment.user %}
+            <span><a href="" class="delete">Delete</a></span>
+            <span><a href="{% url 'edit_comment_for_answer' comment.id %}" class="edit">Edit</a></span>
+        {% endif %}
 
-
+        </p>
     {% endfor %}
     <a href="{% url 'answer_comment' answer.id %}" class="comment-section">Add a comment</a>
 

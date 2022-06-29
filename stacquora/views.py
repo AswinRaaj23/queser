@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from .models import Answer, AnswerComment, Question, QuestionComment
-from .forms import LoginForm,UserRegistrationForm,AskQuestionForm,AnswerQuestion, QuestionComment, AnswerComment
+from .forms import LoginForm,UserRegistrationForm,AskQuestionForm,AnswerQuestion, QuestionCommentForm, AnswerCommentForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from taggit.models import Tag
@@ -100,11 +100,11 @@ def delete_answer(request, id):
 
 @login_required
 def questioncomment(request, id):
-    commentform = QuestionComment
+    commentform = QuestionCommentForm
     question = Question.objects.get(id=id)
 
     if request.method=='POST':
-        commentform = QuestionComment(request.POST)
+        commentform = QuestionCommentForm(request.POST)
 
         if commentform.is_valid():
             comment=commentform.save(commit=False)
@@ -115,13 +115,14 @@ def questioncomment(request, id):
 
     return render(request, 'stacquora/question_comment.html', {'commentform':commentform, 'question':question})
 
+@login_required
 def answercomment(request, id):
-    anscommentform = AnswerComment
+    anscommentform = AnswerCommentForm
     answer = Answer.objects.get(id=id)
     q_id = answer.question.id
 
     if request.method=='POST':
-        anscommentform = AnswerComment(request.POST)
+        anscommentform = AnswerCommentForm(request.POST)
 
         if anscommentform.is_valid():
             comment=anscommentform.save(commit=False)
@@ -131,3 +132,32 @@ def answercomment(request, id):
             return redirect(reverse('question', args=[q_id]))
     
     return render(request, 'stacquora/answer_comment.html', {'anscommentform':anscommentform, 'answer':answer})
+
+
+@login_required
+def edit_questioncomment(request, id):
+    comment = QuestionComment.objects.get(id=id)
+    q_id = comment.question.id
+
+    if request.method=='POST':
+        edit_comment_form = QuestionCommentForm(instance=comment, data=request.POST)
+        if edit_comment_form.is_valid():
+            edit_comment_form.save()
+            return redirect(reverse('question', args=[q_id]))
+    else:
+        edit_comment_form = QuestionCommentForm(instance=comment)
+    return render(request, 'stacquora/edit_questioncomment.html', {'edit_comment_form':edit_comment_form})
+
+def edit_answercomment(request, id):
+    comment = AnswerComment.objects.get(id=id)
+    q_id = comment.answer.question.id
+
+    if request.method=='POST':
+        edit_answercomment_form = AnswerCommentForm(instance=comment, data=request.POST)
+        if edit_answercomment_form.is_valid():
+            edit_answercomment_form.save()
+            return redirect(reverse('question', args=[q_id]))
+    else:
+        edit_answercomment_form = AnswerCommentForm(instance=comment)
+
+    return render(request, 'stacquora/edit_answercomment.html', {'edit_answercomment_form':edit_answercomment_form})

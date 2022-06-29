@@ -31,12 +31,12 @@ class AnswerQuestion(forms.ModelForm):
         model = Answer
         fields = ['answer']
 
-class QuestionComment(forms.ModelForm):
+class QuestionCommentForm(forms.ModelForm):
     class Meta:
         model = QuestionComment
         fields = ['comment']
 
-class AnswerComment(forms.ModelForm):
+class AnswerCommentForm(forms.ModelForm):
     class Meta:
         model = AnswerComment
         fields = ['comment']
