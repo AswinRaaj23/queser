@@ -43,6 +43,7 @@ def askquestion(request):
             question=form.save(commit=False)
             question.author=request.user
             question.save()
+            return redirect('homepage')
 
     return render(request, 'stacquora/askquestion.html', {'form':form})
 
@@ -58,6 +59,7 @@ def questionpage(request, id):
             answer.user=request.user
             answer.question=Question(id=id)
             answer.save()
+            return redirect(reverse('question', args=[id]))
 
 
     return render(request, 'stacquora/question_detail.html',{'question':question, 'answerform':answerform })
@@ -77,11 +79,12 @@ def edit(request, id):
 @login_required
 def edit_answer(request, id):
     answer = Answer.objects.get(id=id)
+    q_id = answer.question.id
     if request.method=='POST':
         edit_answer_form = AnswerQuestion(instance=answer, data=request.POST)
         if edit_answer_form.is_valid():
             edit_answer_form.save()
-            return redirect('homepage')
+            return redirect(reverse('question', args=[q_id]))
     else:
         edit_answer_form = AnswerQuestion(instance=answer)
     return render(request, 'stacquora/edit_answer.html', {'edit_answer_form':edit_answer_form})
@@ -95,8 +98,9 @@ def delete(request, id):
 @login_required
 def delete_answer(request, id):
     answer = Answer.objects.get(id=id)
+    q_id = answer.question.id
     answer.delete()
-    return redirect('homepage')
+    return redirect(reverse('question', args=[q_id]))
 
 @login_required
 def questioncomment(request, id):
