@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load voting_tags %}
 {% block title %}Homepage{% endblock %}
 {% block content %}
     
@@ -39,12 +40,18 @@
                 {% endif %}
 
                 <br>
+
                 {% if request.user.is_authenticated %}
                     {% if request.user != question.author %}
                         <span><a href="{% url 'questionupdown' question.id 1 %}" class="likes">Upvote</a></span>
-                        <span><a href="" class="likes">Downvote</a></span>
+                        <span><a href="{% url 'questionupdown' question.id 2 %}" class="likes">Downvote</a></span> | 
                     {% endif %}                 
                 {% endif %}
+                
+                {% score_for_object question as score %}
+                {{ score.score }} point{{ score.score|pluralize }}
+                after {{ score.num_votes }} vote{{ score.num_votes|pluralize }}
+
             </div>
         </div>
 

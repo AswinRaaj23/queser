@@ -187,9 +187,9 @@ def delete_answercomment(request, id):
 def questionupdown(request, id, vote):
     user = request.user
     question = Question.objects.get(id=id)
-    
-    # total_votes = Vote.objects.get_score(question)
 
     if vote==1:
         Vote.objects.record_vote(question, user, +1)
+    elif vote==2:
+        Vote.objects.record_vote(question, user, 0)
     return redirect('homepage')
