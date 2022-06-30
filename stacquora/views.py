@@ -220,9 +220,10 @@ def questioncommentupdown(request, id, vote):
 def answercommentupdown(request, id, vote):
     user = request.user
     comment = AnswerComment.objects.get(id=id)
+    q_id = comment.answer.question.id
     
     if vote==1:
         Vote.objects.record_vote(comment, user, +1)
     elif vote==2:
         Vote.objects.record_vote(comment, user, 0)
-    return redirect('homepage')
+    return redirect(reverse('question', args=[q_id]))

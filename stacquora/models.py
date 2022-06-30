@@ -13,8 +13,7 @@ class Question(models.Model):
     updated = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
     tags = TaggableManager()
-    #likes = models.ManyToManyField(User, blank=True, related_name='userlikes')
-
+    
     def __str__(self):
         return self.title
 
