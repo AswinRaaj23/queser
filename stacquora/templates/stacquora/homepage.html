@@ -49,8 +49,8 @@
                 {% endif %}
                 
                 {% score_for_object question as score %}
-                {{ score.score }} point{{ score.score|pluralize }}
-                after {{ score.num_votes }} vote{{ score.num_votes|pluralize }}
+                {{ score.score }} vote{{ score.score|pluralize }}
+                
 
             </div>
         </div>

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load voting_tags %}
 {% block title %}{{ question.title }}{% endblock %}
 
 {% block content %}
@@ -29,11 +30,22 @@
     </p>
     <p class="answer-author">
         answered by:{{ answer.user.username }}
+
         {% if request.user == answer.user %}
             <span><a href="{% url 'delete_answer' answer.id %}" class="delete">Delete Answer</a></span>
             <span><a href="{% url 'edit_answer' answer.id %}" class="edit">Edit Answer</a></span>
         {% endif %}
+
     </p>
+        {% if request.user.is_authenticated %}
+            {% if request.user != answer.author %}
+                <span><a href="{% url 'answerupdown' answer.id 1 %}" class="likes">Upvote</a></span>
+                <span><a href="{% url 'answerupdown' answer.id 2 %}" class="likes">Downvote </a></span>&nbsp | 
+            {% endif %}                 
+        {% endif %}
+
+        {% score_for_object answer as score %}
+        {{ score.score }} vote{{ score.score|pluralize }}
 </div>
 <h1></h1>
 

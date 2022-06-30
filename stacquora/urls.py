@@ -20,5 +20,6 @@ urlpatterns = [
     path('delete-answercomment/<int:id>/', views.delete_answercomment, name='delete_comment_for_answer'),
     path('', views.homepage, name='homepage'),
     path('questionupdownvote/<int:id>/<int:vote>', views.questionupdown, name='questionupdown'),
+    path('answerupdownvote/<int:id>/<int:vote>', views.answerupdown, name='answerupdown'),
     path('tag/<slug:tag_slug>/', views.homepage, name='question_list_by_tag'),
 ]
