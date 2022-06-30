@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from taggit.models import Tag
 from django.urls import reverse
+from voting.models import Vote
 # Create your views here.
 
 def homepage(request, tag_slug=None):
@@ -182,3 +183,13 @@ def delete_answercomment(request, id):
 
     comment.delete()
     return redirect(reverse('question', args=[q_id]))
+
+def questionupdown(request, id, vote):
+    user = request.user
+    question = Question.objects.get(id=id)
+    
+    # total_votes = Vote.objects.get_score(question)
+
+    if vote==1:
+        Vote.objects.record_vote(question, user, +1)
+    return redirect('homepage')
