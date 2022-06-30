@@ -16,6 +16,18 @@
             <span><a href="{% url 'edit_comment_for_question' comment.id %}" class="edit">Edit</a></span>
         {% endif %}
         </p>
+        <p class="comment-indent">
+        {% if request.user.is_authenticated %}
+            {% if request.user != comment.author %}
+                <span><a href="{% url 'qcommentupdown' comment.id 1 %}" class="likes">Upvote</a></span>
+                <span><a href="{% url 'qcommentupdown' comment.id 2 %}" class="likes">Downvote </a></span>&nbsp | 
+            {% endif %}                 
+        {% endif %}
+
+        {% score_for_object comment as score %}
+        {{ score.score }} vote{{ score.score|pluralize }}
+
+        </p>
 
         {% empty %}
         <p class="comment-section">No Comments yet.</p>

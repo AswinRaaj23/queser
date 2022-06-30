@@ -204,3 +204,14 @@ def answerupdown(request, id, vote):
     elif vote==2:
         Vote.objects.record_vote(answer, user, 0)
     return redirect(reverse('question', args=[q_id]))
+
+def questioncommentupdown(request, id, vote):
+    user = request.user
+    comment = QuestionComment.objects.get(id=id)
+    q_id = comment.question.id
+
+    if vote==1:
+        Vote.objects.record_vote(comment, user, +1)
+    elif vote==2:
+        Vote.objects.record_vote(comment, user, 0)
+    return redirect(reverse('question', args=[q_id]))

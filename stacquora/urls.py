@@ -21,5 +21,6 @@ urlpatterns = [
     path('', views.homepage, name='homepage'),
     path('questionupdownvote/<int:id>/<int:vote>', views.questionupdown, name='questionupdown'),
     path('answerupdownvote/<int:id>/<int:vote>', views.answerupdown, name='answerupdown'),
+    path('questioncommentupdownvote/<int:id>/<int:vote>', views.questioncommentupdown, name='qcommentupdown'),
     path('tag/<slug:tag_slug>/', views.homepage, name='question_list_by_tag'),
 ]
