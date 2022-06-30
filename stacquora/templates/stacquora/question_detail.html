@@ -71,6 +71,23 @@
         {% endif %}
 
         </p>
+
+        <p class="comment-indent">
+            {% if request.user.is_authenticated %}
+                {% if request.user != comment.author %}
+                    <span><a href="{% url 'anscommentupdown' comment.id 1 %}" class="likes">Upvote</a></span>
+                    <span><a href="{% url 'anscommentupdown' comment.id 2 %}" class="likes">Downvote </a></span>&nbsp | 
+                {% endif %}                 
+            {% endif %}
+    
+            {% score_for_object comment as score %}
+            {{ score.score }} vote{{ score.score|pluralize }}
+    
+        </p>
+
+
+
+
     {% endfor %}
     <a href="{% url 'answer_comment' answer.id %}" class="comment-section">Add a comment</a>
 
