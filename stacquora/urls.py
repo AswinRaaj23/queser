@@ -18,10 +18,11 @@ urlpatterns = [
     path('editanswer-comment/<int:id>/', views.edit_answercomment, name='edit_comment_for_answer'),
     path('delete-questioncomment/<int:id>/', views.delete_questioncomment, name='delete_comment_for_question'),
     path('delete-answercomment/<int:id>/', views.delete_answercomment, name='delete_comment_for_answer'),
-    path('', views.homepage, name='homepage'),
+    path('', views.QuestionList.as_view(), name='homepage'),
+    
     path('questionupdownvote/<int:id>/<int:vote>', views.questionupdown, name='questionupdown'),
     path('answerupdownvote/<int:id>/<int:vote>', views.answerupdown, name='answerupdown'),
     path('questioncommentupdownvote/<int:id>/<int:vote>', views.questioncommentupdown, name='qcommentupdown'),
     path('answercommentupdownvote/<int:id>/<int:vote>', views.answercommentupdown, name='anscommentupdown'),
-    path('tag/<slug:tag_slug>/', views.homepage, name='question_list_by_tag'),
+    
 ]

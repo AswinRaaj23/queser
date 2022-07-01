@@ -1,4 +1,6 @@
 from django.shortcuts import get_object_or_404, redirect, render
+
+from stacquora.filters import QuestionFilter
 from .models import Answer, AnswerComment, Question, QuestionComment
 from .forms import LoginForm,UserRegistrationForm,AskQuestionForm,AnswerQuestion, QuestionCommentForm, AnswerCommentForm
 from django.contrib.auth import authenticate, login
@@ -7,29 +9,19 @@ from taggit.models import Tag
 from django.urls import reverse
 from voting.models import Vote
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.views.generic.list import ListView
+from django_filters.views import FilterView
+from .filters import QuestionFilter
 # Create your views here.
 
-def homepage(request, tag_slug=None):
-    sort = request.GET.get('order','-created')
-    questions = Question.objects.all().order_by(sort)
-    tag = None
+class HomePageFilterMixin(FilterView, ListView):
+    model = Question
+    paginate_by = 3
+    filterset_class = QuestionFilter
 
-    if tag_slug:
-        tag = get_object_or_404(Tag, slug=tag_slug)
-        questions = questions.filter(tags__in=[tag])
-
-    paginator = Paginator(questions, 3)
-    page = request.GET.get('page')
-
-    try:
-        questions = paginator.page(page)
-    except PageNotAnInteger:
-        questions = paginator.page(1)
-    except EmptyPage:
-        questions = paginator.page(paginator.num_pages)
-
-    return render(request, 'stacquora/homepage.html', {'section': 'homepage', 'questions':questions,'tag':tag, 'page':page})
-
+class QuestionList(HomePageFilterMixin):
+    template_name = "stacquora/homepage.html"
+    
 
 def register(request):
     if request.method=='POST':

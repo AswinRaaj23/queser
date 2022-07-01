@@ -9,14 +9,14 @@
     <div class="dropdown" style="float:right;">
         <button class="dropbtn">Sort by date</button>
         <div class="dropdown-content">
-          <a href="?order=created">Old</a>
-          <a href="?order=-created">Recent</a>
+          <a href="?order_by=created">Old</a>
+          <a href="?order_by=-created">Recent</a>
         </div>
     </div>
         <h1>All Questions</h1>
         
     {% endif %}
-    {% for question in questions %}
+    {% for question in object_list %}
         <div class="page">
             <a href="{% url 'question' question.id %}">
                 <p class="question-title">
@@ -26,7 +26,7 @@
             <div>
                 <p>Tags: 
                     {% for tag in question.tags.all %}
-                        <a href="{% url 'question_list_by_tag' tag.slug %}">{{ tag.name }}</a>
+                        <a href="?tags={{ tag.name }}">{{ tag.name }}</a>
                         {% if not forloop.last %}, {% endif %}
                     {% endfor %}
                 </p>
@@ -57,5 +57,5 @@
 
         <hr>
     {% endfor %}
-    {% include "pagination.html" with page=questions %}
+    {% include "pagination.html" %}
 {% endblock %}
