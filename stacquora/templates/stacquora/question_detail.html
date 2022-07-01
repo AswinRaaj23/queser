@@ -6,8 +6,8 @@
 <h2><b>{{ question.title }}</b></h2>
 <p>{{ question.description }}</p>
 <span class="author-name">asked by: {{ question.author.username }} </span>
-<hr>
 <br>
+<hr>
 
     <h4><b class="comment-indent">Comments:</b></h4>
     {% for comment in question.questioncomment.all %}

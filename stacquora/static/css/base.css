@@ -134,6 +134,7 @@ input[type=submit], a.button {
     font-size:13px;
 }
 .anc-tag {
+    color: #cf1313 !important;
     background-color: white;
     border-radius: 30px;
     padding: 10px 20px;
@@ -238,6 +239,14 @@ ul.messages li a.close {
 
 .answer-author{
     color: gray;
+    margin-left: 10px;
+}
+.answer-title{
+    margin-left: 10px;
+}
+
+.answer-list{
+    border-left: 4px groove;
 }
 
 .dropbtn {
