@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from taggit.models import Tag
 from django.urls import reverse
 from voting.models import Vote
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # Create your views here.
 
 def homepage(request, tag_slug=None):
@@ -17,7 +18,17 @@ def homepage(request, tag_slug=None):
         tag = get_object_or_404(Tag, slug=tag_slug)
         questions = questions.filter(tags__in=[tag])
 
-    return render(request, 'stacquora/homepage.html', {'section': 'homepage', 'questions':questions,'tag':tag})
+    paginator = Paginator(questions, 3)
+    page = request.GET.get('page')
+
+    try:
+        questions = paginator.page(page)
+    except PageNotAnInteger:
+        questions = paginator.page(1)
+    except EmptyPage:
+        questions = paginator.page(paginator.num_pages)
+
+    return render(request, 'stacquora/homepage.html', {'section': 'homepage', 'questions':questions,'tag':tag, 'page':page})
 
 
 def register(request):
