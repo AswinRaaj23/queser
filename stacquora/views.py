@@ -1,27 +1,39 @@
-from django.shortcuts import get_object_or_404, redirect, render
-
+from django.shortcuts import redirect, render
 from stacquora.filters import QuestionFilter
 from .models import Answer, AnswerComment, Question, QuestionComment
-from .forms import LoginForm,UserRegistrationForm,AskQuestionForm,AnswerQuestion, QuestionCommentForm, AnswerCommentForm
-from django.contrib.auth import authenticate, login
+from .forms import UserRegistrationForm,AskQuestionForm,AnswerQuestion, QuestionCommentForm, AnswerCommentForm
 from django.contrib.auth.decorators import login_required
-from taggit.models import Tag
 from django.urls import reverse
 from voting.models import Vote
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic.list import ListView
+from django.views.generic import FormView
 from django_filters.views import FilterView
 from .filters import QuestionFilter
+from django.views import View
+from django.urls import reverse_lazy
 # Create your views here.
 
 class HomePageFilterMixin(FilterView, ListView):
     model = Question
     paginate_by = 3
     filterset_class = QuestionFilter
+    ordering = ['created']
 
 class QuestionList(HomePageFilterMixin):
     template_name = "stacquora/homepage.html"
-    
+
+
+
+# class RegisterView(FormView):
+#     form_class = UserRegistrationForm
+#     template_name = 'stacquora/register.html'
+#     success_url = reverse_lazy('stacquora/registered.html')
+
+
+#     def form_valid(self, form):
+#         form.clean_password2()
+#         form.save()
+#         return super(RegisterView, self).form_valid(form)
 
 def register(request):
     if request.method=='POST':
@@ -187,46 +199,31 @@ def delete_answercomment(request, id):
     comment.delete()
     return redirect(reverse('question', args=[q_id]))
 
-def questionupdown(request, id, vote):
+def updown_helper(request, model_object, vote, id, related_name=None):
     user = request.user
-    question = Question.objects.get(id=id)
-
-    if vote==1:
-        Vote.objects.record_vote(question, user, +1)
-    elif vote==2:
-        Vote.objects.record_vote(question, user, 0)
-    return redirect('homepage')
-
-def answerupdown(request, id, vote):
-    user = request.user
-    answer = Answer.objects.get(id=id)
-    q_id = answer.question.id
-
-    if vote==1:
-        Vote.objects.record_vote(answer, user, +1)
-    elif vote==2:
-        Vote.objects.record_vote(answer, user, 0)
-    return redirect(reverse('question', args=[q_id]))
-
-def questioncommentupdown(request, id, vote):
-    user = request.user
-    comment = QuestionComment.objects.get(id=id)
-    q_id = comment.question.id
-
-    if vote==1:
-        Vote.objects.record_vote(comment, user, +1)
-    elif vote==2:
-        Vote.objects.record_vote(comment, user, 0)
-    return redirect(reverse('question', args=[q_id]))
-
-
-def answercommentupdown(request, id, vote):
-    user = request.user
-    comment = AnswerComment.objects.get(id=id)
-    q_id = comment.answer.question.id
+    model = model_object.objects.get(id=id)
+    related_model = getattr(model, related_name) if related_name else model
     
     if vote==1:
-        Vote.objects.record_vote(comment, user, +1)
+        Vote.objects.record_vote(model, user, +1)
     elif vote==2:
-        Vote.objects.record_vote(comment, user, 0)
-    return redirect(reverse('question', args=[q_id]))
+        Vote.objects.record_vote(model, user, 0)
+
+    if model_object==Question:
+        return redirect('homepage')
+    else:
+        q_id = related_model.question_id
+        return redirect(reverse('question', args=[q_id]))
+
+    
+def questionupdown(request, id, vote):
+    return updown_helper(request, Question, vote, id)
+
+def answerupdown(request, id, vote):
+    return updown_helper(request, Answer, vote, id)
+
+def questioncommentupdown(request, id, vote):
+    return updown_helper(request, QuestionComment, vote, id)
+
+def answercommentupdown(request, id, vote):
+    return updown_helper(request, AnswerComment, vote, id, "answer")
