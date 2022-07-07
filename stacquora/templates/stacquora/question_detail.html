@@ -19,7 +19,7 @@
         </p>
         <p class="comment-indent">
         {% if request.user.is_authenticated %}
-            {% if request.user != comment.author %}
+            {% if request.user != comment.user %}
                 <span><a href="{% url 'qcommentupdown' comment.id 1 %}" class="likes">Upvote</a></span>
                 <span><a href="{% url 'qcommentupdown' comment.id 2 %}" class="likes">Downvote </a></span>&nbsp | 
             {% endif %}                 
@@ -51,7 +51,7 @@
 
     </p>
         {% if request.user.is_authenticated %}
-            {% if request.user != answer.author %}
+            {% if request.user != answer.user %}
                 <span><a href="{% url 'answerupdown' answer.id 1 %}" class="likes">Upvote</a></span>
                 <span><a href="{% url 'answerupdown' answer.id 2 %}" class="likes">Downvote </a></span>&nbsp | 
             {% endif %}                 
@@ -75,7 +75,7 @@
 
         <p class="comment-indent">
             {% if request.user.is_authenticated %}
-                {% if request.user != comment.author %}
+                {% if request.user != comment.user %}
                     <span><a href="{% url 'anscommentupdown' comment.id 1 %}" class="likes">Upvote</a></span>
                     <span><a href="{% url 'anscommentupdown' comment.id 2 %}" class="likes">Downvote </a></span>&nbsp | 
                 {% endif %}                 
